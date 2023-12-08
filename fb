@@ -1,0 +1,47 @@
+from abc import ABC, abstractmethod
+
+# Абстрактний клас для продукту
+class Product(ABC):
+    @abstractmethod
+    def operation(self):
+        pass
+
+# Конкретна реалізація продукту
+class ConcreteProductA(Product):
+    def operation(self):
+        return "ConcreteProductA operation"
+
+# Інша конкретна реалізація продукту
+class ConcreteProductB(Product):
+    def operation(self):
+        return "ConcreteProductB operation"
+
+# Абстрактний клас для фабрики
+class Creator(ABC):
+    @abstractmethod
+    def factory_method(self):
+        pass
+
+    def some_operation(self):
+        product = self.factory_method()
+        result = f"Creator: {product.operation()}"
+        return result
+
+# Конкретна реалізація фабрики, яка створює продукт A
+class ConcreteCreatorA(Creator):
+    def factory_method(self):
+        return ConcreteProductA()
+
+# Інша конкретна реалізація фабрики, яка створює продукт B
+class ConcreteCreatorB(Creator):
+    def factory_method(self):
+        return ConcreteProductB()
+
+# Використання
+creator_a = ConcreteCreatorA()
+result_a = creator_a.some_operation()
+print(result_a)
+
+creator_b = ConcreteCreatorB()
+result_b = creator_b.some_operation()
+print(result_b)
